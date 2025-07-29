@@ -4,10 +4,15 @@
 #  methods:  GET
 #
 
-setupcheck:
-    path: /api/setup-check
-    controller: App\Controller\DefaultController::setupCheck
+checkexchangerate:
+    path: /api/check-exchange-rate
+    controller: App\Controller\DefaultController::checkExchangeRate
+    methods: GET
 
+check_exchange_rate_history:
+    path: /api/check-exchange-rate/{currency}/{days}
+    controller: App\Controller\DefaultController::chechExchangeRateHistory
+    methods: GET
 index:
     path: /{wildcard}
     defaults: {

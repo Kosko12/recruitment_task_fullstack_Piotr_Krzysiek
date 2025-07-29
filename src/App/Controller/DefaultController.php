@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Enum\Currency;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
+use App\Service\ExchangeService;
 
 class DefaultController extends AbstractController
 {
@@ -33,5 +35,26 @@ class DefaultController extends AbstractController
         );
     }
 
+    public function checkExchangeRate(Request $request, ExchangeService $exchangeService): Response
+    {
+        $currencies = Currency::list();
+
+        $data = [];
+
+        foreach($currencies as $curr){
+            $data[] = $exchangeService->getRates($curr);
+        }
+
+        return new JsonResponse(['data' => $data]);
+    }
+    public function chechExchangeRateHistory(Request $request, ExchangeService $exchangeService): Response
+    {
+        $currencyCode = $request->get('currency');
+        $days = $request->get('days');
+
+        $data = $exchangeService->getSpecificRatesHistory($currencyCode, $days);
+
+        return new JsonResponse(['data' => $data]);
+    }
 
 }
