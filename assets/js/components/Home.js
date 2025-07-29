@@ -20,7 +20,7 @@ class Home extends Component {
                                 <Link className={"nav-link"} to={"/check-exchange-rate"}>Check Rates</Link>
                             </li>
                             <li className='nav-item'>
-                                <Link className={"nav-link"} to={"/check-exchange-rate-history"}>History Rates</Link>
+                                <Link className={"nav-link"} to={"/check-exchange-rate-history"}>Previous Rates</Link>
                             </li>
                         </ul>
                     </div>
