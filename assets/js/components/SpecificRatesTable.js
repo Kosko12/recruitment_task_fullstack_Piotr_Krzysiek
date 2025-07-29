@@ -12,8 +12,11 @@ const SpecificRatesTable = () => {
 
 
   useEffect(() => {
+    const controller = new AbortController();
     axios
-      .get(`http://telemedi-zadanie.localhost/api/check-exchange-rate/${currency}/14`)
+      .get(`http://telemedi-zadanie.localhost/api/check-exchange-rate/${currency}/14`, {
+        signal: controller.signal
+        })
       .then((res) => {
         setRates(() => res.data.data);
         setLoading(false);
@@ -23,6 +26,7 @@ const SpecificRatesTable = () => {
         console.error(err);
         setLoading(false);
       });
+      return () => {controller.abort()};
   }, [currency]);
 
   return (

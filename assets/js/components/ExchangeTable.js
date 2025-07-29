@@ -8,8 +8,12 @@ const ExchangeTable = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const controller = new AbortController();
+
     axios
-      .get("http://telemedi-zadanie.localhost/api/check-exchange-rate")
+      .get("http://telemedi-zadanie.localhost/api/check-exchange-rate", {
+        signal: controller.signal
+        })
       .then((res) => {
         setRates(() => res.data.data);
         setLoading(false);
@@ -17,6 +21,9 @@ const ExchangeTable = () => {
       .catch((err) => {
         setLoading(false);
       });
+      return () => {
+        controller.abort();
+      }
   }, []);
 
   return (
