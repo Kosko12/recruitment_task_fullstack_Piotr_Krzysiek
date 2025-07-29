@@ -26,7 +26,7 @@ class Home extends Component {
                     </div>
                 </nav>
                 <Switch>
-                    {/* <Redirect exact from="/" to="/setup-check" /> */}
+                    <Redirect exact from="/" to="/check-exchange-rate" />
                     <Route path="/check-exchange-rate" component={ExchangeTable} />
                     <Route path="/check-exchange-rate-history" component={SpecificRatesTable} />
 
